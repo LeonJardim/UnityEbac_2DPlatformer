@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     #region Variables
+    [Header("References")]
+    [SerializeField] private SpriteRenderer sprite;
     private Rigidbody2D rb;
     private PlayerInputActions playerControls;
     private InputAction move;
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
     {
         playerControls = new PlayerInputActions();
         rb = GetComponent<Rigidbody2D>();
-        _initialScale = rb.transform.localScale;
+        _initialScale = sprite.transform.localScale;
     }
     private void OnEnable()
     {
@@ -92,8 +94,8 @@ public class Player : MonoBehaviour
     }
     private void JumpAnimation(bool landing = false)
     {
-        rb.transform.localScale = _initialScale;
-        DOTween.Kill(rb.transform);
+        sprite.transform.localScale = _initialScale;
+        DOTween.Kill(sprite.transform);
         float sX = jumpScaleX;
         float sY = jumpScaleY;
         float d = animationDuration;
@@ -103,8 +105,8 @@ public class Player : MonoBehaviour
             sY = 1.0f / sY;
             d *= 0.5f;
         }
-        rb.transform.DOScaleY(rb.transform.localScale.y * sY, d).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        rb.transform.DOScaleX(rb.transform.localScale.x * sX, d).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        sprite.transform.DOScaleY(sprite.transform.localScale.y * sY, d).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        sprite.transform.DOScaleX(sprite.transform.localScale.x * sX, d).SetLoops(2, LoopType.Yoyo).SetEase(ease);
     }
 
     private bool IsOnFloor()
