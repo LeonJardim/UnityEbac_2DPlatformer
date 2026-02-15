@@ -100,8 +100,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4234347626984553944}
-  - component: {fileID: 8856777922855674864}
   - component: {fileID: 5709036729942990420}
+  - component: {fileID: 6683699054447753074}
+  - component: {fileID: 8856777922855674864}
   m_Layer: 3
   m_Name: PFB_Coin
   m_TagString: Untagged
@@ -125,19 +126,6 @@ Transform:
   - {fileID: 5146226957036904637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8856777922855674864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181797373916937547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 223a4d598f13e9b468186be68f7eeeea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectableCoin
-  tagToCompare: Player
 --- !u!58 &5709036729942990420
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +162,29 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2
+--- !u!210 &6683699054447753074
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181797373916937547}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 14
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
+--- !u!114 &8856777922855674864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181797373916937547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 223a4d598f13e9b468186be68f7eeeea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableCoin
+  tagToCompare: Player
