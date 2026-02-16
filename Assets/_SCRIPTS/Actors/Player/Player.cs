@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Leon.Core.InputActions;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,12 +10,16 @@ public class Player : MonoBehaviour
     #region Variables
     [Header("References")]
     [SerializeField] private Transform sprite;
+    [SerializeField] private GunBase gun;
+    public float fireRate = 0.3f;
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerInputActions playerControls;
     private InputAction move;
     private InputAction jump;
     private InputAction sprint;
+    private InputAction fire;
+    private Coroutine _currentCoroutine;
 
     [Header("Speed Setup")]
     public float speed = 30f;
@@ -32,6 +37,7 @@ public class Player : MonoBehaviour
     private Vector3 _initialScale;
 
     [Header("Animations")]
+    [SerializeField] private bool facingRight = true;
     [SerializeField] private float turningDuration = 0.2f;
     [SerializeField] private string animRunBool = "Run";
     [SerializeField] private string animYSpeed = "YSpeed";
@@ -58,12 +64,14 @@ public class Player : MonoBehaviour
         move = playerControls.Player.Move; move.Enable();
         jump = playerControls.Player.Jump; jump.Enable();
         sprint = playerControls.Player.Sprint; sprint.Enable();
+        fire = playerControls.Player.Attack; fire.Enable();
     }
     private void OnDisable()
     {
         move.Disable();
         jump.Disable();
         sprint.Disable();
+        fire.Disable();
     }
     #endregion
 
@@ -72,6 +80,7 @@ public class Player : MonoBehaviour
     {
         HandleJump();
         HandleMovement();
+        HandleGun();
     }
     
 
@@ -116,6 +125,29 @@ public class Player : MonoBehaviour
 
         _lastFloorCheck = isOnFloor;
     }
+    private void HandleGun()
+    {
+        if (gun == null || gun.enabled == false) return;
+
+        if (fire.WasPressedThisFrame())
+        {
+            _currentCoroutine = StartCoroutine(StartShooting());
+        }
+        else if (fire.WasReleasedThisFrame())
+        {
+            if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
+        }
+    }
+
+    IEnumerator StartShooting()
+    {
+        while (true)
+        {
+            gun.facingLeft = !facingRight;
+            gun.Shoot();
+            yield return new WaitForSeconds(fireRate);
+        }
+    }
     private void JumpAnimation(bool landing = false)
     {
         sprite.localScale = _initialScale;
@@ -137,8 +169,11 @@ public class Player : MonoBehaviour
         if (transform.localScale.x * rb.linearVelocityX < 0 && !_isTurning)
         {
             _isTurning = true;
-            transform.DOScaleX(-transform.localScale.x, turningDuration)
-                .OnComplete(() => _isTurning = false);
+            transform.DOScaleX(-transform.localScale.x, turningDuration).OnComplete(() =>
+            {
+                _isTurning = false;
+                facingRight = transform.localScale.x > 0;
+            });
         }
     }
 
