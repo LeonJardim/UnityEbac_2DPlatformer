@@ -1,9 +1,11 @@
 using Leon.Core.Singleton;
+using TMPro;
 using UnityEngine;
 
 public class ItemManager : Singleton<ItemManager>
 {
     public int coins;
+    [SerializeField] private TMP_Text coinTextHUD;
 
     private void Start()
     {
@@ -18,5 +20,6 @@ public class ItemManager : Singleton<ItemManager>
     public void AddCoins(int amount = 1)
     {
         coins += amount;
+        coinTextHUD.text = "x " + coins;
     }
 }
