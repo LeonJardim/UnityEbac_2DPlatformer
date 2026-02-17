@@ -378,6 +378,7 @@ GameObject:
   - component: {fileID: 2944973745361044811}
   - component: {fileID: 3122169294817524646}
   - component: {fileID: 5901857304213278342}
+  - component: {fileID: 4304147249241116467}
   m_Layer: 0
   m_Name: PFB_Enemy_2_ART
   m_TagString: Untagged
@@ -445,6 +446,19 @@ SortingGroup:
   m_SortingOrder: 15
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!114 &4304147249241116467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3176744783887258002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e2af4df5491524e98457274085076c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyMe
+  obj: {fileID: 0}
 --- !u!1 &3257322378915922041
 GameObject:
   m_ObjectHideFlags: 0

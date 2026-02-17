@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public class HealthBase : MonoBehaviour
 {
+    public Action OnKill;
     public int startingLife = 10;
-    public bool destroyOnKill = true;
     public float delayToKill = 1f;
 
     private FlashColor _flashColor;
@@ -40,9 +41,6 @@ public class HealthBase : MonoBehaviour
     private void Kill()
     {
         _isDead = true;
-        if (destroyOnKill)
-        {
-            Destroy(gameObject, delayToKill);
-        }
+        OnKill?.Invoke();
     }
 }

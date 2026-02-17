@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform sprite;
     [SerializeField] private GunBase gun;
     public float fireRate = 0.3f;
+    private bool _isDead = false;
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerInputActions playerControls;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     private InputAction sprint;
     private InputAction fire;
     private Coroutine _currentCoroutine;
+    private HealthBase _health;
 
     [Header("Speed Setup")]
     public float speed = 30f;
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private string animRunBool = "Run";
     [SerializeField] private string animYSpeed = "YSpeed";
     [SerializeField] private string animOnFloorBool = "OnFloor";
+    [SerializeField] private string animDeath = "Death";
     private bool _isTurning = false;
 
     [Header("Box Cast")]
@@ -51,13 +54,18 @@ public class Player : MonoBehaviour
     #endregion
 
 
-    #region Enable/Disable Inputs
+    #region Awake and Enable/Disable Inputs
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-        rb = GetComponent<Rigidbody2D>();
-        animator = sprite.GetComponent<Animator>();
         _initialScale = sprite.localScale;
+        animator = sprite.GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        _health = GetComponent<HealthBase>();
+        if (_health != null )
+        {
+            _health.OnKill += DeathAnimation;
+        }
     }
     private void OnEnable()
     {
@@ -78,6 +86,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (_isDead) return;
         HandleJump();
         HandleMovement();
         HandleGun();
@@ -175,6 +184,12 @@ public class Player : MonoBehaviour
                 facingRight = transform.localScale.x > 0;
             });
         }
+    }
+    private void DeathAnimation()
+    {
+        _health.OnKill -= DeathAnimation;
+        animator.SetTrigger(animDeath);
+        _isDead = true;
     }
 
 

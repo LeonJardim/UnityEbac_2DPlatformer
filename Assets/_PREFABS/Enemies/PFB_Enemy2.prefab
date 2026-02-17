@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3794411184075695140}
   - component: {fileID: 6349220369380471366}
   m_Layer: 0
-  m_Name: PFP_Enemy2
+  m_Name: PFB_Enemy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBase
   startingLife: 10
-  destroyOnKill: 1
   delayToKill: 0.2
 --- !u!114 &6349220369380471366
 MonoBehaviour:
@@ -207,6 +206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PFB_Enemy_2_ART
       objectReference: {fileID: 0}
+    - target: {fileID: 4304147249241116467, guid: e0d57717ad485d748986ddb9eba2beb8, type: 3}
+      propertyPath: obj
+      value: 
+      objectReference: {fileID: 2463797856119982246}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
