@@ -15,12 +15,10 @@ public class ItemManager : Singleton<ItemManager>
     private void Reset()
     {
         coins.Value = 0;
-        coinTextHUD.text = "x " + coins.Value.ToString();
     }
 
     public void AddCoins(int amount = 1)
     {
         coins.Value += amount;
-        coinTextHUD.text = "x " + coins.Value.ToString();
     }
 }
