@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform sprite;
     [SerializeField] private GunBase gun;
-    public float fireRate = 0.3f;
-    private bool _isDead = false;
+    public SOPlayerSetup soP;
+    
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerInputActions playerControls;
@@ -23,34 +23,12 @@ public class Player : MonoBehaviour
     private Coroutine _currentCoroutine;
     private HealthBase _health;
 
-    [Header("Speed Setup")]
-    public float speed = 30f;
-    public float sprintSpeed = 50f;
-    public float jumpForce = 55f;
-    public float friction = 180f;
     private bool _isSprinting = false;
     private bool _lastFloorCheck = false;
-
-    [Header("Squat/Strech Setup")]
-    [SerializeField] private float jumpScaleY = 1.6f;
-    [SerializeField] private float jumpScaleX = 0.7f;
-    [SerializeField] private float animationDuration = 0.15f;
-    [SerializeField] private Ease ease = Ease.OutBack;
     private Vector3 _initialScale;
-
-    [Header("Animations")]
-    [SerializeField] private bool facingRight = true;
-    [SerializeField] private float turningDuration = 0.2f;
-    [SerializeField] private string animRunBool = "Run";
-    [SerializeField] private string animYSpeed = "YSpeed";
-    [SerializeField] private string animOnFloorBool = "OnFloor";
-    [SerializeField] private string animDeath = "Death";
+    private bool _isDead = false;
+    private bool _facingRight = true;
     private bool _isTurning = false;
-
-    [Header("Box Cast")]
-    [SerializeField] private float castDistance;
-    [SerializeField] private Vector2 castBoxSize;
-    [SerializeField] private LayerMask groundLayer;
     #endregion
 
 
@@ -98,18 +76,18 @@ public class Player : MonoBehaviour
         Vector2 inputDirection = move.ReadValue<Vector2>();
         float targetSpeed = inputDirection.x * GetSpeed;
 
-        rb.linearVelocityX = Mathf.MoveTowards(rb.linearVelocityX, targetSpeed, friction * Time.deltaTime);
+        rb.linearVelocityX = Mathf.MoveTowards(rb.linearVelocityX, targetSpeed, soP.friction * Time.deltaTime);
 
          // Set Animations
         if (Mathf.Abs(rb.linearVelocityX) > 0.1f)
         {
-            animator.SetBool(animRunBool, true);
+            animator.SetBool(soP.animRunBool, true);
             animator.speed = _isSprinting ? 2f : 1f;
             FlipSprite();
         }
         else
         {
-            animator.SetBool(animRunBool, false);
+            animator.SetBool(soP.animRunBool, false);
             animator.speed = 1f;
         }
         
@@ -118,12 +96,12 @@ public class Player : MonoBehaviour
     {
         bool isOnFloor = IsOnFloor();
 
-        if (Mathf.Abs(rb.linearVelocityY) > 0) { animator.SetFloat(animYSpeed, rb.linearVelocityY > 0f ? 1f : -1f); }
-        else { animator.SetFloat(animYSpeed, 0f); }
+        if (Mathf.Abs(rb.linearVelocityY) > 0) { animator.SetFloat(soP.animYSpeed, rb.linearVelocityY > 0f ? 1f : -1f); }
+        else { animator.SetFloat(soP.animYSpeed, 0f); }
 
         if (isOnFloor && jump.triggered)
         {
-            rb.linearVelocityY = jumpForce;
+            rb.linearVelocityY = soP.jumpForce;
             JumpAnimation();
         }
         if (isOnFloor && !_lastFloorCheck)
@@ -152,43 +130,43 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            gun.facingLeft = !facingRight;
+            gun.facingLeft = !_facingRight;
             gun.Shoot();
-            yield return new WaitForSeconds(fireRate);
+            yield return new WaitForSeconds(soP.fireRate);
         }
     }
     private void JumpAnimation(bool landing = false)
     {
         sprite.localScale = _initialScale;
         DOTween.Kill(sprite);
-        float sX = jumpScaleX;
-        float sY = jumpScaleY;
-        float d = animationDuration;
+        float sX = soP.jumpScaleX;
+        float sY = soP.jumpScaleY;
+        float d = soP.animationDuration;
         if (landing)
         {
             sX = 1.0f / sX;
             sY = 1.0f / sY;
             d *= 0.5f;
         }
-        sprite.DOScaleY(sprite.localScale.y * sY, d).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        sprite.DOScaleX(sprite.localScale.x * sX, d).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        sprite.DOScaleY(sprite.localScale.y * sY, d).SetLoops(2, LoopType.Yoyo).SetEase(soP.ease);
+        sprite.DOScaleX(sprite.localScale.x * sX, d).SetLoops(2, LoopType.Yoyo).SetEase(soP.ease);
     }
     private void FlipSprite()
     {
         if (transform.localScale.x * rb.linearVelocityX < 0 && !_isTurning)
         {
             _isTurning = true;
-            transform.DOScaleX(-transform.localScale.x, turningDuration).OnComplete(() =>
+            transform.DOScaleX(-transform.localScale.x, soP.turningDuration).OnComplete(() =>
             {
                 _isTurning = false;
-                facingRight = transform.localScale.x > 0;
+                _facingRight = transform.localScale.x > 0;
             });
         }
     }
     private void DeathAnimation()
     {
         _health.OnKill -= DeathAnimation;
-        animator.SetTrigger(animDeath);
+        animator.SetTrigger(soP.animDeath);
         _isDead = true;
     }
 
@@ -196,12 +174,12 @@ public class Player : MonoBehaviour
     #region Variable Functions
     private bool IsOnFloor()
     {
-        if (Physics2D.BoxCast(transform.position, castBoxSize, 0f, Vector2.down, castDistance, groundLayer))
-            {  animator.SetBool(animOnFloorBool, true); return true;}
+        if (Physics2D.BoxCast(transform.position, soP.castBoxSize, 0f, Vector2.down, soP.castDistance, soP.groundLayer))
+            {  animator.SetBool(soP.animOnFloorBool, true); return true;}
         else
-            { animator.SetBool(animOnFloorBool, false); return false; }
+            { animator.SetBool(soP.animOnFloorBool, false); return false; }
     }
-    //private void OnDrawGizmos() { Gizmos.DrawWireCube(transform.position + (Vector3.down * castDistance), castBoxSize); }
+    //private void OnDrawGizmos() { Gizmos.DrawWireCube(transform.position + (Vector3.down * soP.castDistance), soP.castBoxSize); }
     public float GetSpeed
     {
         get
@@ -209,15 +187,15 @@ public class Player : MonoBehaviour
             if (sprint.IsPressed())
             {
                 _isSprinting = true;
-                return sprintSpeed;
+                return soP.sprintSpeed;
             }
             else
             {
                 _isSprinting = false;
-                return speed;
+                return soP.speed;
             }
         }
-        set { speed = value; }
+        set { soP.speed = value; }
     }
     #endregion
 }

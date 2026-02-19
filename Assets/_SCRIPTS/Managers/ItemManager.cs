@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemManager : Singleton<ItemManager>
 {
-    public int coins;
+    public SOInt coins;
     [SerializeField] private TMP_Text coinTextHUD;
 
     private void Start()
@@ -14,12 +14,13 @@ public class ItemManager : Singleton<ItemManager>
 
     private void Reset()
     {
-        coins = 0;
+        coins.Value = 0;
+        coinTextHUD.text = "x " + coins.Value.ToString();
     }
 
     public void AddCoins(int amount = 1)
     {
-        coins += amount;
-        coinTextHUD.text = "x " + coins;
+        coins.Value += amount;
+        coinTextHUD.text = "x " + coins.Value.ToString();
     }
 }

@@ -125,25 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   sprite: {fileID: 1942369251886068215}
   gun: {fileID: 7911052165899520639}
-  fireRate: 0.3
-  speed: 30
-  sprintSpeed: 50
-  jumpForce: 55
-  friction: 180
-  jumpScaleY: 1.3
-  jumpScaleX: 0.7
-  animationDuration: 0.15
-  ease: 27
-  facingRight: 1
-  turningDuration: 0.2
-  animRunBool: Run
-  animYSpeed: YSpeed
-  animOnFloorBool: OnFloor
-  castDistance: 0
-  castBoxSize: {x: 2.5, y: 0.5}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  soP: {fileID: 11400000, guid: ce768519a4017cf42953c881ee622415, type: 2}
 --- !u!114 &3231973238817308401
 MonoBehaviour:
   m_ObjectHideFlags: 0

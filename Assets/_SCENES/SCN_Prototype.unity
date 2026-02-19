@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3bde2fe04704c7488c4695b6a7c294f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemManager
-  coins: 0
+  coins: {fileID: 11400000, guid: 8dc1b8530dcd54a4091ec135df8edd12, type: 2}
   coinTextHUD: {fileID: 547888215}
 --- !u!1 &182882387
 GameObject:
@@ -1840,6 +1840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 775433028}
+  - component: {fileID: 775433029}
   m_Layer: 5
   m_Name: CoinUI
   m_TagString: Untagged
@@ -1868,6 +1869,20 @@ RectTransform:
   m_AnchoredPosition: {x: 312.131, y: -130}
   m_SizeDelta: {x: 464.264, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &775433029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775433027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c0f696256c08b4da2fae9bc3d3f3a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoInt_Update
+  soInt: {fileID: 11400000, guid: 8dc1b8530dcd54a4091ec135df8edd12, type: 2}
+  uiText: {fileID: 547888215}
 --- !u!1 &843382124
 GameObject:
   m_ObjectHideFlags: 0
