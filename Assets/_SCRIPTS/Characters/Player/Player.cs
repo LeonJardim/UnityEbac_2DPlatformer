@@ -9,8 +9,10 @@ public class Player : MonoBehaviour
 {
     #region Variables
     [Header("References")]
-    [SerializeField] private Transform sprite;
     [SerializeField] private GunBase gun;
+    [SerializeField] private Transform sprite;
+    [SerializeField] private ParticleSystem jumpVFX;
+    [SerializeField] private ParticleSystem dustVFX;
     public SOPlayerSetup soP;
     
     private Rigidbody2D rb;
@@ -103,11 +105,14 @@ public class Player : MonoBehaviour
         {
             rb.linearVelocityY = soP.jumpForce;
             JumpAnimation();
+            jumpVFX.Play();
+            dustVFX.Stop();
         }
         if (isOnFloor && !_lastFloorCheck)
         {
             JumpAnimation(true);
             _lastFloorCheck = true;
+            dustVFX.Play();
         }
 
         _lastFloorCheck = isOnFloor;
