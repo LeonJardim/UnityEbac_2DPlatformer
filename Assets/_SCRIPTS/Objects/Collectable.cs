@@ -5,6 +5,7 @@ public class Collectable : MonoBehaviour
     public string tagToCompare = "Player";
     public ParticleSystem particles;
     public GameObject spriteRenderer;
+    public AudioSource audioSource;
     public float timeToDestroy;
     private bool _collected = false;
 
@@ -28,6 +29,7 @@ public class Collectable : MonoBehaviour
     {
         if (particles != null) particles.Play();
         if (spriteRenderer != null) spriteRenderer.SetActive(false);
+        if (audioSource != null) audioSource.Play();
     }
 
     private void DestroyMe()

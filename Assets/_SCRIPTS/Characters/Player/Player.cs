@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform sprite;
     [SerializeField] private ParticleSystem jumpVFX;
     [SerializeField] private ParticleSystem dustVFX;
+    [SerializeField] private AudioSource audioSource;
     public SOPlayerSetup soP;
     
     private Rigidbody2D rb;

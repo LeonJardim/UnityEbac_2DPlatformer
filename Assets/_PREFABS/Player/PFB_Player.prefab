@@ -129,6 +129,7 @@ MonoBehaviour:
   sprite: {fileID: 1942369251886068215}
   jumpVFX: {fileID: 7672512076867528657}
   dustVFX: {fileID: 5284145346980478060}
+  audioSource: {fileID: 445507974326904417}
   soP: {fileID: 11400000, guid: ce768519a4017cf42953c881ee622415, type: 2}
 --- !u!114 &3231973238817308401
 MonoBehaviour:
@@ -419,6 +420,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
+--- !u!82 &445507974326904417 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8357081672366064937, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
+  m_PrefabInstance: {fileID: 8490572433560265544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &579008914907370440 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9069580248349405312, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
