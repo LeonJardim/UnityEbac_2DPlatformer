@@ -25,6 +25,8 @@ public class EnemyBase : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (_health._isDead) return;
+
         var health = collision.gameObject.GetComponent<HealthBase>();
 
         if (health != null)

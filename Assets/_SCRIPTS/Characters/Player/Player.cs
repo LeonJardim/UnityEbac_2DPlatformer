@@ -3,6 +3,7 @@ using Leon.Core.InputActions;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem dustVFX;
     [SerializeField] private AudioSource audioSource;
     public SOPlayerSetup soP;
+    public UnityEvent deathEvent;
     
     private Rigidbody2D rb;
     private Animator animator;
@@ -173,6 +175,7 @@ public class Player : MonoBehaviour
     {
         _health.OnKill -= DeathAnimation;
         animator.SetTrigger(soP.animDeath);
+        deathEvent.Invoke();
         _isDead = true;
     }
 

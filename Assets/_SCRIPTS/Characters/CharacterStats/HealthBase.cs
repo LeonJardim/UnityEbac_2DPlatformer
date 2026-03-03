@@ -9,7 +9,7 @@ public class HealthBase : MonoBehaviour
 
     private FlashColor _flashColor;
     private int _currentLife;
-    private bool _isDead = false;
+    public bool _isDead = false;
 
 
     private void Awake()
